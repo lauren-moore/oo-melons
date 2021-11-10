@@ -1,4 +1,11 @@
 """Classes for melon orders."""
+import random
+import datetime
+
+from datetime import datetime
+from pytz import timezone
+
+
 
 class AbstractMelonOrder():
 
@@ -12,11 +19,26 @@ class AbstractMelonOrder():
         self.tax = tax
         self.country_code = country_code
 
+    @staticmethod
+    def get_base_price():
+
+   
+        date = datetime.now()
+        date = date.astimezone(timezone('US/Pacific'))
+        time_var = date.weekday()
+
+        if time_var < 5 and date.hour >= 8 and date.hour <= 11:
+            surge = 4
+        else:
+            surge = 1
+
+        return random.randint(5,9) * surge
+
 
     def get_total(self):
         """Calculate price, including tax."""
 
-        base_price = 5
+        base_price = self.get_base_price()
 
         if self.species == "christmas":
             base_price *= 1.5
