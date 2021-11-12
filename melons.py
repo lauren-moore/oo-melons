@@ -34,7 +34,6 @@ class AbstractMelonOrder():
 
         return random.randint(5,9) * surge
 
-
     def get_total(self):
         """Calculate price, including tax."""
 
